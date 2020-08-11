@@ -447,8 +447,9 @@ namespace IngameDebugConsole
 
 			if( toggleWithKey )
 			{
-				if( Input.GetKeyDown( toggleKey ) )
+				if( Input.GetKeyDown( toggleKey ) || OVRInput.GetDown(toggleButtonforVR, OVRInput.Controller.Touch))
 				{
+					AdjustPosition();
 					if( isLogWindowVisible )
 						ShowPopup();
 					else
@@ -491,6 +492,33 @@ namespace IngameDebugConsole
 					ReceivedLog( "LOGCAT: " + log, string.Empty, LogType.Log );
 			}
 #endif
+		}
+
+		//VR Implementation
+		public GameObject ovrCameraRig;
+		public OVRInput.Button toggleButtonforVR;
+
+		public void AdjustPosition()
+		{
+			if (ovrCameraRig == null)
+			{
+				ovrCameraRig = GameObject.Find("OVRCameraRig");
+			}
+			transform.SetParent(ovrCameraRig.transform.Find("TrackingSpace/CenterEyeAnchor"));
+
+
+			transform.localPosition = new Vector3(0, 0, 5);
+			transform.localRotation = Quaternion.Euler(Vector3.zero);
+
+			Vector3 originalPos = transform.position;
+			Quaternion originalRot = transform.rotation;
+			//Setting the z rotation as 0 to adjust the debug console's orientation so that the debug console stays readable.
+			originalRot = Quaternion.Euler(originalRot.eulerAngles.x, originalRot.eulerAngles.y, 0.0f);
+
+			transform.SetParent(null);
+
+			transform.position = originalPos;
+			transform.rotation = originalRot;
 		}
 
 		public void ShowLogWindow()
