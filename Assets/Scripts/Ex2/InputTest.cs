@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class InputTest : MonoBehaviour
 {
@@ -14,14 +15,15 @@ public class InputTest : MonoBehaviour
     private string filePath;
     StringBuilder builder = new StringBuilder();
     public TextMeshProUGUI simpleUIText;
+    private string currentSceneName;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentSceneName = SceneManager.GetActiveScene().name;
         initialTime = Time.time;
         executing = true;
-        filePath = Application.persistentDataPath + "Result.txt";
+        filePath = Application.persistentDataPath + currentSceneName + "Result.txt";
         answers = new List<string>();
     }
 

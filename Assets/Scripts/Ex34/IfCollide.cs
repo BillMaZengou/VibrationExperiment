@@ -9,11 +9,13 @@ public class IfCollide : MonoBehaviour
     private GameObject contact;
     private GameObject Spawn;
     private GameObject Base;
+    private GameObject BaseShell;
     private Vector3 initialPosition;
 
     public string buttonName;
     public string spawnPosition;
     public string BaseName;
+    public string BaseShellName;
 
     private void Start()
     {
@@ -21,6 +23,9 @@ public class IfCollide : MonoBehaviour
         Base = FindInActiveObjectByName(BaseName);
         contact = GameObject.Find("ContactPlane");
         Spawn = GameObject.Find(spawnPosition);
+        if (BaseShellName != null) {
+            BaseShell = FindInActiveObjectByName(BaseShellName);
+        }
         initialPosition = Spawn.transform.position;
         gameObject.transform.position = initialPosition;
     }
@@ -43,6 +48,7 @@ public class IfCollide : MonoBehaviour
             contact.SetActive(false);
             starter.SetActive(true);
             Base.SetActive(true);
+            BaseShell.SetActive(true);
             gameObject.SetActive(false);
         }
     }

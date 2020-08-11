@@ -214,7 +214,6 @@ GameObject:
   - component: {fileID: 243167562}
   - component: {fileID: 243167561}
   - component: {fileID: 243167560}
-  - component: {fileID: 243167563}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -285,20 +284,6 @@ RectTransform:
   m_AnchoredPosition: {x: 6, y: 29}
   m_SizeDelta: {x: 1298, y: 988}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &243167563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 243167559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adc7f6e18385747bd8a2e2848f802c0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  simpleUIText: {fileID: 1831833138}
-  statesFrom: {fileID: 1145330874}
 --- !u!1 &328768605 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 132536, guid: 67117722a812a2e46ab8cb8eafbf5f5e,
@@ -1098,6 +1083,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _laserBeamBehavior
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114392411909336904, guid: a9d2de84afb308a4796cc671d3432b4d,
+        type: 3}
+      propertyPath: maxLength
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9d2de84afb308a4796cc671d3432b4d, type: 3}
