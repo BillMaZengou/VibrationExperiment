@@ -360,4 +360,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Menu: {fileID: 0}
-  toggleButtonforVR: 0
+  toggleButtonforVR: 256

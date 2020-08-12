@@ -75,7 +75,7 @@ public class InputTest : MonoBehaviour
                     StartFrom.gameObject.SetActive(true);
                 }
 
-                JudgeIfLeft();
+                JudgeIfUp();
             }
         }
         else {
@@ -83,20 +83,20 @@ public class InputTest : MonoBehaviour
         }
     }
 
-    void JudgeIfLeft() {
-        if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft))
+    void JudgeIfUp() {
+        if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickUp))
         {
             //Debug.Log("Left");
-            Left();
-            answers.Add(WriteTpye() + "Left\n");
+            Up();
+            answers.Add(WriteTpye() + "Up\n");
             executing = false;
             initialTime = currentTime;
         }
-        else if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight))
+        else if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickDown))
         {
             //Debug.Log("Right");
-            Right();
-            answers.Add(WriteTpye() + "Right\n");
+            Down();
+            answers.Add(WriteTpye() + "Down\n");
             executing = false;
             initialTime = currentTime;
         }
@@ -117,8 +117,8 @@ public class InputTest : MonoBehaviour
             //Debug.Log("Opened file!");
             //Debug.Log("About to write into file!");
             File.WriteAllText(filePath, results);
-            //Debug.Log(filePath);
-            //Debug.Log(results);
+            Debug.Log(filePath);
+            Debug.Log(results);
             Saved();
     }
         catch (System.Exception e)
@@ -138,14 +138,14 @@ public class InputTest : MonoBehaviour
         simpleUIText.text = "Your answer OR Store";
     }
 
-    void Left()
+    void Up()
     {
-        simpleUIText.text = "Left";
+        simpleUIText.text = "Up";
     }
 
-    void Right()
+    void Down()
     {
-        simpleUIText.text = "Right";
+        simpleUIText.text = "Down";
     }
 
     void Saved()

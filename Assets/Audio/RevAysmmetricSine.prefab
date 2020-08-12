@@ -130,7 +130,7 @@ MonoBehaviour:
     clampMinimumValue: 0
     clampMaximumValue: 1
   - name: Frequency
-    value: 27.5
+    value: 40
     generator: {fileID: 0}
     hiddenValue: 0
     allowInput: 1
