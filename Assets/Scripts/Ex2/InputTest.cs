@@ -8,14 +8,20 @@ using UnityEngine.SceneManagement;
 
 public class InputTest : MonoBehaviour
 {
-    private List<string> answers;
+    public bool running;
     private bool executing;
+    private List<string> answers;
     private float initialTime;
     private float currentTime;
     private string filePath;
     StringBuilder builder = new StringBuilder();
     public TextMeshProUGUI simpleUIText;
     private string currentSceneName;
+    public bool ifPlay;
+
+    private bool posOrNot;
+    private int whichWave;
+    private RandomPlayer JudgeFrom;
 
     // Start is called before the first frame update
     void Start()
@@ -25,35 +31,47 @@ public class InputTest : MonoBehaviour
         executing = true;
         filePath = Application.persistentDataPath + currentSceneName + "Result.txt";
         answers = new List<string>();
+        ifPlay = false;
+        JudgeFrom = gameObject.GetComponent<RandomPlayer>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //Debug.Log(executing)
-        currentTime = Time.time;
-
-        if (currentTime - initialTime > 1.0f) {
-            Test();
-        }
-
-        if (currentTime - initialTime > 5.0f)
-        {
-            executing = true;
-            Debug.Log("Please provide the answer OR store your answers");
-            Provide();
-        }
-
-        if (executing)
-        {
-            if (OVRInput.Get(OVRInput.Button.Three))
+        if (running) {
+            currentTime = Time.time;
+            if (currentTime - initialTime > 15.0f)
             {
-                RecordResults();
-                Debug.Log(filePath);
+                initialTime = currentTime;
             }
+            else {
+                if (currentTime - initialTime > 1.0f)
+                {
+                    Test();
+                    posOrNot = JudgeFrom.PosOrNeg;
+                    whichWave = JudgeFrom.whichOne;
+                }
 
-            JudgeIfLeft();
-            //Test();
+                if (currentTime - initialTime > 5.0f)
+                {
+                    executing = true;
+                    Debug.Log("Please provide the answer OR store your answers");
+                    Provide();
+                }
+
+                if (executing)
+                {
+                    if (OVRInput.Get(OVRInput.Button.Three))
+                    {
+                        RecordResults();
+                        Debug.Log(filePath);
+                        running = false;
+                    }
+
+                    JudgeIfLeft();
+                }
+            }
         }
     }
 
@@ -62,7 +80,7 @@ public class InputTest : MonoBehaviour
         {
             Debug.Log("Left");
             Left();
-            answers.Add("Left");
+            answers.Add(WriteTpye() + "Left\n");
             executing = false;
             initialTime = currentTime;
         }
@@ -70,7 +88,7 @@ public class InputTest : MonoBehaviour
         {
             Debug.Log("Right");
             Right();
-            answers.Add("Right");
+            answers.Add(WriteTpye() + "Right\n");
             executing = false;
             initialTime = currentTime;
         }
@@ -102,10 +120,12 @@ public class InputTest : MonoBehaviour
 
     void Test()
     {
+        ifPlay = true;
         simpleUIText.text = "Testing...";
     }
 
     void Provide() {
+        ifPlay = false;
         simpleUIText.text = "Your answer OR Store";
     }
 
@@ -122,5 +142,15 @@ public class InputTest : MonoBehaviour
     void Saved()
     {
         simpleUIText.text = "Answers Have Been Saved";
+    }
+
+    string WriteTpye() {
+        if (posOrNot)
+        {
+            return "Posive" + JudgeFrom.PosSoundTypes[whichWave].name;
+        }
+        else {
+            return "Negative" + JudgeFrom.NegSoundTypes[whichWave].name;
+        }
     }
 }
