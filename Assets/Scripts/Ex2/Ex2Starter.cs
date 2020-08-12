@@ -18,22 +18,20 @@ public class Ex2Starter : MonoBehaviour
         startPoint = Spawn.transform.position;
         gameObject.transform.position = startPoint;
         ifStart = false;
-        //Debug.Log(Spawn);
-        //Debug.Log(Shell);
-        //Debug.Log(Base);
     }
 
     private void OnEnable()
     {
         gameObject.transform.position = startPoint;
+        ifStart = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collide");
+        //Debug.Log("Collide");
         if (collision.gameObject.name == Base.name)
         {
-            Debug.Log("base");
+            //Debug.Log("base");
             // Do stuff
             Base.SetActive(false);
             Shell.SetActive(false);

@@ -29,12 +29,15 @@ public class RandomPlayer : MonoBehaviour
     void Update()
     {
         playOrNot = gameObject.GetComponent<InputTest>().ifPlay;
-        if (playOrNot) {
+        //Debug.Log(playOrNot);
+        if (playOrNot)
+        {
             float PosOrNegThresh = Random.value;
-            if (PosOrNegThresh < 0.5f) {
+            if (PosOrNegThresh < 0.5f)
+            {
                 PosOrNeg = false;  // Play negative
             }
-            else { PosOrNeg = true;  }  // Play positive
+            else { PosOrNeg = true; }  // Play positive
 
             if (PosOrNeg)
             {
@@ -43,12 +46,16 @@ public class RandomPlayer : MonoBehaviour
                 FindSound();
                 PlaySound();
             }
-            else {
+            else
+            {
                 whichOne = (int)Random.Range(0.0f, NegSoundTypes.Count - 0.6f);
                 SoundType = NegSoundTypes[whichOne];
                 FindSound();
                 PlaySound();
             }
+        }
+        else {
+            audioSource.Stop();
         }
     }
 
