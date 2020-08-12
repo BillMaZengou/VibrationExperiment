@@ -48,7 +48,13 @@ public class IfCollide : MonoBehaviour
             contact.SetActive(false);
             starter.SetActive(true);
             Base.SetActive(true);
-            BaseShell.SetActive(true);
+
+            if (BaseShell)
+            {
+                Debug.Log(BaseShellName);
+                BaseShell.SetActive(true);
+            }
+            
             gameObject.SetActive(false);
         }
     }

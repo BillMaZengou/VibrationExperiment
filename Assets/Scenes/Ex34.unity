@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3872,6 +3872,7 @@ MonoBehaviour:
   - {fileID: 77383158}
   PosOrNeg: 1
   whichOne: 3
+  ifPlay: 0
 --- !u!1 &1687053512
 GameObject:
   m_ObjectHideFlags: 0
@@ -4958,7 +4959,7 @@ PrefabInstance:
       objectReference: {fileID: 1816282643}
     - target: {fileID: 22400762, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.009719849
+      value: 0.011123657
       objectReference: {fileID: 0}
     - target: {fileID: 22426080, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5296,7 +5297,7 @@ PrefabInstance:
     - target: {fileID: 949993677379242001, guid: 9f837af9b21ce4a558961acd561fb219,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5776188
+      value: 0.517
       objectReference: {fileID: 0}
     - target: {fileID: 949993677379242001, guid: 9f837af9b21ce4a558961acd561fb219,
         type: 3}
@@ -5346,17 +5347,17 @@ PrefabInstance:
     - target: {fileID: 949993677379242001, guid: 9f837af9b21ce4a558961acd561fb219,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5032207
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 949993677379242001, guid: 9f837af9b21ce4a558961acd561fb219,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.3038801
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 949993677379242001, guid: 9f837af9b21ce4a558961acd561fb219,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.28571412
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f837af9b21ce4a558961acd561fb219, type: 3}
@@ -5769,7 +5770,7 @@ PrefabInstance:
     - target: {fileID: 8609211390998409628, guid: 75625f9d364164e039fa0a98a05d1ca1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.52285594
+      value: 0.517
       objectReference: {fileID: 0}
     - target: {fileID: 8609211390998409628, guid: 75625f9d364164e039fa0a98a05d1ca1,
         type: 3}

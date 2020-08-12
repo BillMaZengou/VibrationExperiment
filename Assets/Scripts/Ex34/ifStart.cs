@@ -86,7 +86,7 @@ public class ifStart : MonoBehaviour
             //Debug.Log(checker);
             checker.SetActive(true);
 
-            gameObject.transform.rotation = Quaternion.identity;
+            //gameObject.transform.rotation = Quaternion.identity;
             gameObject.SetActive(false);
         }
     }

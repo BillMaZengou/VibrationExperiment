@@ -27,11 +27,19 @@ public class ContactPlay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Sound);
         if (ifPlay)
         {
             PlaySound();
         }
+        else {
+            audioSource.Stop();
+        }
+    }
+
+    private void OnDisable()
+    {
+        ifPlay = false;
+        audioSource.Stop();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -55,7 +63,6 @@ public class ContactPlay : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         ifPlay = false;
-        Sound = null;
     }
 
     private void PlaySound()
