@@ -22,6 +22,7 @@ public class InputTest : MonoBehaviour
     private bool posOrNot;
     private int whichWave;
     private RandomPlayer JudgeFrom;
+    private Ex2Starter StartFrom;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,8 @@ public class InputTest : MonoBehaviour
         answers = new List<string>();
         ifPlay = false;
         JudgeFrom = gameObject.GetComponent<RandomPlayer>();
+        StartFrom = gameObject.GetComponent<Ex2Starter>();
+        running = StartFrom.ifStart;
     }
 
     // Update is called once per frame
@@ -56,7 +59,7 @@ public class InputTest : MonoBehaviour
                 if (currentTime - initialTime > 5.0f)
                 {
                     executing = true;
-                    Debug.Log("Please provide the answer OR store your answers");
+                    //Debug.Log("Please provide the answer OR store your answers");
                     Provide();
                 }
 
@@ -67,6 +70,11 @@ public class InputTest : MonoBehaviour
                         RecordResults();
                         Debug.Log(filePath);
                         running = false;
+                        StartFrom.Base.SetActive(true);
+                        StartFrom.Shell.SetActive(true);
+                        StartFrom.LeftController.SetActive(false);
+                        StartFrom.LeftHand.SetActive(true);
+                        StartFrom.gameObject.SetActive(true);
                     }
 
                     JudgeIfLeft();
@@ -78,7 +86,7 @@ public class InputTest : MonoBehaviour
     void JudgeIfLeft() {
         if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft))
         {
-            Debug.Log("Left");
+            //Debug.Log("Left");
             Left();
             answers.Add(WriteTpye() + "Left\n");
             executing = false;
@@ -86,7 +94,7 @@ public class InputTest : MonoBehaviour
         }
         else if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight))
         {
-            Debug.Log("Right");
+            //Debug.Log("Right");
             Right();
             answers.Add(WriteTpye() + "Right\n");
             executing = false;
@@ -106,10 +114,10 @@ public class InputTest : MonoBehaviour
             }
             string results = builder.ToString();
 
-            Debug.Log("Opened file!");
-            Debug.Log("About to write into file!");
+            //Debug.Log("Opened file!");
+            //Debug.Log("About to write into file!");
             File.WriteAllText(filePath, results);
-            Debug.Log(results);
+            //Debug.Log(results);
             Saved();
     }
         catch (System.Exception e)

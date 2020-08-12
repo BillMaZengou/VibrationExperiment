@@ -22,7 +22,7 @@ public class RandomPlayer : MonoBehaviour
         SoundPlayer = GameObject.Find("Audio Source");
         //Debug.Log(SoundPlayer);
         audioSource = SoundPlayer.GetComponent<AudioSource>();
-        Debug.Log(audioSource);
+        //Debug.Log(audioSource);
     }
 
     // Update is called once per frame
@@ -59,13 +59,13 @@ public class RandomPlayer : MonoBehaviour
         audioSource.clip = Sound;
         audioSource.volume = 1.0f;
         audioSource.Play();
-        Debug.Log("Done");
+        //Debug.Log("Done");
     }
 
     private void FindSound()
     {
         DarkArtsStudios.SoundGenerator.Composition bounceComposition = SoundType.GetComponent<DarkArtsStudios.SoundGenerator.Composition>();
-        Debug.Log(SoundType);
+        //Debug.Log(SoundType);
         DarkArtsStudios.SoundGenerator.Module.Output output = null;
         foreach (DarkArtsStudios.SoundGenerator.Module.BaseModule module in bounceComposition.modules)
         {
@@ -76,12 +76,12 @@ public class RandomPlayer : MonoBehaviour
                 break;
             }
         }
-        Debug.Log(output);
+        //Debug.Log(output);
         if (output)
         {
             output.Generate();
             Sound = output.audioClip;
-            Debug.Log(Sound);
+            //Debug.Log(Sound);
         }
     }
 
