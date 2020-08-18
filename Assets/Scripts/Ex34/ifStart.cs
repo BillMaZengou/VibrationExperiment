@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class ifStart : MonoBehaviour
 {
-    private GameObject contact;
+    //private GameObject contact;
     public int whichOne;
 
-    private GameObject pusher;
-    private GameObject Spawn;
-    private GameObject Base;
-    private GameObject Shell;
-    private GameObject fixture;
-    private Vector3 startPoint;
+    //private GameObject pusher;
+    //private GameObject Spawn;
+    //private GameObject Base;
+    //private GameObject Shell;
+    //private GameObject fixture;
+    //private Vector3 startPoint;
     public bool ifChosen = false;
+    public GameObject Manager;
+    private ExpManagement functions;
 
     public string spawnPosition;
     public string target;
@@ -26,59 +28,61 @@ public class ifStart : MonoBehaviour
 
     private void Start()
     {
-        Spawn = GameObject.Find(spawnPosition);
-        startPoint = Spawn.transform.position;
+        functions = Manager.gameObject.GetComponent<ExpManagement>();
+        //Spawn = GameObject.Find(spawnPosition);
+        //startPoint = Spawn.transform.position;
 
-        Base = GameObject.Find(baseName);
-        contact = FindInActiveObjectByName("ContactPlane");
+        //Base = GameObject.Find(baseName);
+        //contact = FindInActiveObjectByName("ContactPlane");
 
-        if (fixtureName != null) {
-            fixture = FindInActiveObjectByName(fixtureName);
-            //Debug.Log(fixture);
-        }
+        //if (fixtureName != null) {
+        //fixture = FindInActiveObjectByName(fixtureName);
+        //Debug.Log(fixture);
+        //}
 
-        if (shellName != null)
-        {
-            Shell = GameObject.Find(shellName);
-            //Debug.Log(Shell);
-        }
+        //if (shellName != null)
+        //{
+        //    Shell = GameObject.Find(shellName);
+        //Debug.Log(Shell);
+        //}
 
-        pusher = FindInActiveObjectByName(target);
+        //pusher = FindInActiveObjectByName(target);
         //Debug.Log(pusher);
-        gameObject.transform.position = startPoint;
+        //gameObject.transform.position = startPoint;
     }
 
     private void OnEnable()
     {
-        gameObject.transform.position = startPoint;
+        //gameObject.transform.position = startPoint;
         ifChosen = false;
     }
 
-    private void OnDisable()
-    {
-        gameObject.transform.position = startPoint;
-    }
+    //private void OnDisable()
+    //{
+    //    gameObject.transform.position = startPoint;
+    //}
 
     private void OnCollisionEnter(Collision collision)
     {
         
         if (collision.gameObject.name == baseName)
         {
+            functions.Restart();
             // Do stuff
-            contact.SetActive(true);
-            pusher.SetActive(true);
-            Base.SetActive(false);
+            //contact.SetActive(true);
+            //pusher.SetActive(true);
+            //Base.SetActive(false);
 
-            if (fixture != null) {
-                //Debug.Log("Done");
-                fixture.SetActive(true);
-            }
+            //if (fixture != null) {
+            //    //Debug.Log("Done");
+            //    fixture.SetActive(true);
+            //}
 
-            if (Shell != null)
-            {
-                Shell.SetActive(false);
-            }
-           
+            //if (Shell != null)
+            //{
+            //    Shell.SetActive(false);
+            //}
+
             whichOne = (int)Random.Range(0.0f, checkerNames.Count-0.6f);
             //Debug.Log(whichOne);
             ifChosen = true;
@@ -87,7 +91,7 @@ public class ifStart : MonoBehaviour
             checker.SetActive(true);
 
             //gameObject.transform.rotation = Quaternion.identity;
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 

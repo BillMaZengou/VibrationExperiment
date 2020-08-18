@@ -5,12 +5,14 @@ using UnityEngine;
 public class IfCollide : MonoBehaviour
 {
     //private GameObject pusher;
-    private GameObject starter;
-    private GameObject contact;
-    private GameObject Spawn;
-    private GameObject Base;
-    private GameObject BaseShell;
-    private Vector3 initialPosition;
+    //private GameObject starter;
+    //private GameObject contact;
+    //private GameObject Spawn;
+    //private GameObject Base;
+    //private GameObject BaseShell;
+    //private Vector3 initialPosition;
+    public GameObject Manager;
+    private ExpManagement functions;
 
     public string buttonName;
     public string spawnPosition;
@@ -19,43 +21,45 @@ public class IfCollide : MonoBehaviour
 
     private void Start()
     {
-        starter = FindInActiveObjectByName(buttonName);
-        Base = FindInActiveObjectByName(BaseName);
-        contact = GameObject.Find("ContactPlane");
-        Spawn = GameObject.Find(spawnPosition);
-        if (BaseShellName != null) {
-            BaseShell = FindInActiveObjectByName(BaseShellName);
-        }
-        initialPosition = Spawn.transform.position;
-        gameObject.transform.position = initialPosition;
+        functions = Manager.gameObject.GetComponent<ExpManagement>();
+        //starter = FindInActiveObjectByName(buttonName);
+        //Base = FindInActiveObjectByName(BaseName);
+        //contact = GameObject.Find("ContactPlane");
+        //Spawn = GameObject.Find(spawnPosition);
+        //if (BaseShellName != null) {
+        //    BaseShell = FindInActiveObjectByName(BaseShellName);
+        //}
+        //initialPosition = Spawn.transform.position;
+        //gameObject.transform.position = initialPosition;
     }
 
-    private void OnEnable()
-    {
-        gameObject.transform.position = initialPosition;
-    }
+    //private void OnEnable()
+    //{
+    //    gameObject.transform.position = initialPosition;
+    //}
 
-    private void OnDisable()
-    {
-        gameObject.transform.position = initialPosition;
-    }
+    //private void OnDisable()
+    //{
+    //    gameObject.transform.position = initialPosition;
+    //}
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("target"))
         {
-            collision.gameObject.SetActive(false);
-            contact.SetActive(false);
-            starter.SetActive(true);
-            Base.SetActive(true);
+            functions.EndRound();
+            //collision.gameObject.SetActive(false);
+            //contact.SetActive(false);
+            //starter.SetActive(true);
+            //Base.SetActive(true);
 
-            if (BaseShell)
-            {
-                Debug.Log(BaseShellName);
-                BaseShell.SetActive(true);
-            }
-            
-            gameObject.SetActive(false);
+            //if (BaseShell)
+            //{
+            //    Debug.Log(BaseShellName);
+            //    BaseShell.SetActive(true);
+            //}
+
+            //gameObject.SetActive(false);
         }
     }
 
