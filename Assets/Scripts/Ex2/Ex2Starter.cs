@@ -4,41 +4,40 @@ using UnityEngine;
 
 public class Ex2Starter : MonoBehaviour
 {
-    public GameObject Spawn;
+    public GameObject spawn;
     public GameObject Base;
-    public GameObject Shell;
-    private Vector3 startPoint;
+    public GameObject shell;
+    public GameObject button;
     public GameObject LeftHand;
     public GameObject LeftController;
+
+    private Transform startPoint;
 
     public bool ifStart;
     // Start is called before the first frame update
     void Start()
     {
-        startPoint = Spawn.transform.position;
-        gameObject.transform.position = startPoint;
+        startPoint = spawn.transform;
+        button.transform.position = startPoint.position;
         ifStart = false;
     }
 
     private void OnEnable()
     {
-        gameObject.transform.position = startPoint;
+        button.transform.position = startPoint.position;
+        button.transform.rotation = startPoint.rotation;
         ifStart = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("Collide");
         if (collision.gameObject.name == Base.name)
         {
-            //Debug.Log("base");
-            // Do stuff
             Base.SetActive(false);
-            Shell.SetActive(false);
-            gameObject.transform.rotation = Quaternion.identity;
+            shell.SetActive(false);
+            button.SetActive(false);
             LeftHand.SetActive(false);
             LeftController.SetActive(true);
-            gameObject.SetActive(false);
             ifStart = true;
         }
     }

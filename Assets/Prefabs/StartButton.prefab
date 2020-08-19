@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8609211390998409630}
   - component: {fileID: 8609211390998409631}
   - component: {fileID: 8609211390998409626}
-  - component: {fileID: 8609211390998409627}
+  - component: {fileID: 5311044095868518158}
   m_Layer: 12
   m_Name: StartButton
   m_TagString: Untagged
@@ -112,7 +112,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &8609211390998409627
+--- !u!114 &5311044095868518158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,14 +124,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5bb0dfde1ac452190dc5fd397f0725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whichOne: 0
-  ifChosen: 0
+  Manager: {fileID: 0}
   spawnPosition: 
   target: 
   baseName: 
   fixtureName: 
   shellName: 
-  checkerNames: []
+  ifChosen: 0
 --- !u!1 &8609211391527837582
 GameObject:
   m_ObjectHideFlags: 0

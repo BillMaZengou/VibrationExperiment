@@ -21,7 +21,7 @@ public class ContactPlay : MonoBehaviour
         SoundPlayer = GameObject.Find("Audio Source");
         audioSource = SoundPlayer.GetComponent<AudioSource>();
         ifPlay = false;
-        Debug.Log(audioSource);
+        //Debug.Log(audioSource);
     }
 
     // Update is called once per frame
@@ -49,13 +49,12 @@ public class ContactPlay : MonoBehaviour
             if (PosOrNeg)
             {
                 SoundType = PosSoundTypes[whichOne];
-                FindSound();
             }
             else
             {
                 SoundType = NegSoundTypes[whichOne];
-                FindSound();
             }
+            FindSound();
             ifPlay = true;
         }
     }

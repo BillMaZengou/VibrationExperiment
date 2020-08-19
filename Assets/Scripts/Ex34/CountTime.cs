@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CountTime : MonoBehaviour
 {
@@ -21,7 +19,6 @@ public class CountTime : MonoBehaviour
         DeltaTime = (currentTime - initialTime).ToString("f3");
         DeltaTime += " sec";
         ifRecord = true;
-        //Debug.Log(DeltaTime);
     }
 
 }

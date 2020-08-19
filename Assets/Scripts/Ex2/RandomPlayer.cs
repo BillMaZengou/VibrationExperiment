@@ -20,9 +20,7 @@ public class RandomPlayer : MonoBehaviour
     void Start()
     {
         SoundPlayer = GameObject.Find("Audio Source");
-        //Debug.Log(SoundPlayer);
         audioSource = SoundPlayer.GetComponent<AudioSource>();
-        //Debug.Log(audioSource);
     }
 
     // Update is called once per frame
@@ -41,14 +39,14 @@ public class RandomPlayer : MonoBehaviour
 
             if (PosOrNeg)
             {
-                whichOne = (int)Random.Range(0.0f, PosSoundTypes.Count - 0.6f);
+                whichOne = (int)Random.Range(-0.4f, PosSoundTypes.Count - 0.6f);
                 SoundType = PosSoundTypes[whichOne];
                 FindSound();
                 PlaySound();
             }
             else
             {
-                whichOne = (int)Random.Range(0.0f, NegSoundTypes.Count - 0.6f);
+                whichOne = (int)Random.Range(-0.4f, NegSoundTypes.Count - 0.6f);
                 SoundType = NegSoundTypes[whichOne];
                 FindSound();
                 PlaySound();
@@ -66,7 +64,6 @@ public class RandomPlayer : MonoBehaviour
         audioSource.clip = Sound;
         audioSource.volume = 1.0f;
         audioSource.Play();
-        //Debug.Log("Done");
     }
 
     private void FindSound()
@@ -83,12 +80,10 @@ public class RandomPlayer : MonoBehaviour
                 break;
             }
         }
-        //Debug.Log(output);
         if (output)
         {
             output.Generate();
             Sound = output.audioClip;
-            //Debug.Log(Sound);
         }
     }
 

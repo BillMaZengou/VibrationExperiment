@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ExpManagement : MonoBehaviour
@@ -13,29 +12,52 @@ public class ExpManagement : MonoBehaviour
     public GameObject fixture;
     public GameObject contact;
 
-    public List<GameObject> checkerNames;
+    public int whichOne = 1000;
+    public List<GameObject> checkers;
 
     public void Restart()
     {
+        button.transform.position = buttonSpawn.transform.position;
+        button.transform.rotation = buttonSpawn.transform.rotation;
         button.SetActive(false);
         Base.SetActive(false);
-        shell.SetActive(false);
-        button.transform.position = buttonSpawn.transform.position;
+        if (shell != null)
+        {
+            shell.SetActive(false);
+        }
 
+        pusher.transform.position = pusherSpawn.transform.position;
         pusher.SetActive(true);
-        fixture.SetActive(true);
         contact.SetActive(true);
+        if (fixture != null)
+        {
+            fixture.SetActive(true);
+        }
+
+        whichOne = (int)Random.Range(0.0f, checkers.Count - 0.6f);
+        checkers[whichOne].SetActive(true);
     }
 
     public void EndRound()
     {
+        button.transform.position = buttonSpawn.transform.position;
+        button.transform.rotation = buttonSpawn.transform.rotation;
         button.SetActive(true);
         Base.SetActive(true);
-        shell.SetActive(true);
+        if (shell != null)
+        {
+            shell.SetActive(true);
+        }
 
-        pusher.SetActive(false);
-        fixture.SetActive(false);
-        contact.SetActive(false);
         pusher.transform.position = pusherSpawn.transform.position;
+        pusher.SetActive(false);
+        contact.SetActive(false);
+        if (fixture != null)
+        {
+            fixture.SetActive(false);
+        }
+
+        checkers[whichOne].SetActive(false);
+        whichOne = 1000;
     }
 }

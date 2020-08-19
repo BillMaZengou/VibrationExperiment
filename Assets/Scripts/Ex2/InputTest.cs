@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
@@ -8,19 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class InputTest : MonoBehaviour
 {
+    private string filePath;
+    private string currentSceneName;
     private bool running;
     private bool executing;
     private List<string> answers;
+    StringBuilder builder = new StringBuilder();
+
     private float initialTime;
     private float currentTime;
-    private string filePath;
-    StringBuilder builder = new StringBuilder();
+    
+   
     public TextMeshProUGUI simpleUIText;
-    private string currentSceneName;
     public bool ifPlay;
 
     private bool posOrNot;
     private int whichWave;
+
     private RandomPlayer JudgeFrom;
     private Ex2Starter StartFrom;
 
@@ -34,18 +37,15 @@ public class InputTest : MonoBehaviour
         ifPlay = false;
         running = false;
         JudgeFrom = gameObject.GetComponent<RandomPlayer>();
-        StartFrom = GameObject.Find("StartButton").gameObject.GetComponent<Ex2Starter>();
+        StartFrom = GameObject.Find("Exp2Manager").gameObject.GetComponent<Ex2Starter>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(executing)
         running = StartFrom.ifStart;
-        //Debug.Log(running);
         if (running)
         {
-            //Debug.Log(running);
             currentTime = Time.time;
             if (currentTime - initialTime > 1.0f)
             {
@@ -57,7 +57,6 @@ public class InputTest : MonoBehaviour
             if (currentTime - initialTime > 5.0f)
             {
                 executing = true;
-                //Debug.Log("Please provide the answer OR store your answers");
                 Provide();
             }
 
@@ -66,13 +65,12 @@ public class InputTest : MonoBehaviour
                 if (OVRInput.Get(OVRInput.Button.Three))
                 {
                     RecordResults();
-                    //Debug.Log(filePath);
                     running = false;
                     StartFrom.Base.SetActive(true);
-                    StartFrom.Shell.SetActive(true);
-                    StartFrom.LeftController.SetActive(false);
+                    StartFrom.shell.SetActive(true);
+                    StartFrom.button.SetActive(true);
                     StartFrom.LeftHand.SetActive(true);
-                    StartFrom.gameObject.SetActive(true);
+                    StartFrom.LeftController.SetActive(false);
                 }
 
                 JudgeIfUp();
@@ -86,7 +84,6 @@ public class InputTest : MonoBehaviour
     void JudgeIfUp() {
         if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickUp))
         {
-            //Debug.Log("Left");
             Up();
             answers.Add(WriteTpye() + "Up\n");
             executing = false;
@@ -94,7 +91,6 @@ public class InputTest : MonoBehaviour
         }
         else if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickDown))
         {
-            //Debug.Log("Right");
             Down();
             answers.Add(WriteTpye() + "Down\n");
             executing = false;
@@ -113,9 +109,6 @@ public class InputTest : MonoBehaviour
                 builder.Append(result).Append(",");
             }
             string results = builder.ToString();
-
-            //Debug.Log("Opened file!");
-            //Debug.Log("About to write into file!");
             File.WriteAllText(filePath, results);
             Debug.Log(filePath);
             Debug.Log(results);

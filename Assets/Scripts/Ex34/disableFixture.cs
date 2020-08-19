@@ -1,24 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class disableFixture : MonoBehaviour
+public class DisableFixture : MonoBehaviour
 {
-    public string fixtureName;
-    public string contactName;
-
-    private GameObject fixture;
-    //private GameObject contact;
+    public GameObject Manager;
+    private ExpManagement functions;
 
     private void Start()
     {
-        fixture = GameObject.Find(fixtureName);
+        functions = Manager.gameObject.GetComponent<ExpManagement>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == contactName) {
-            fixture.SetActive(false);
+        if (collision.gameObject.name == functions.contact.name)
+        {
+            functions.fixture.SetActive(false);
         }
     }
 }
