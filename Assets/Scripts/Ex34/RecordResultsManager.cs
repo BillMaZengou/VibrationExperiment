@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
+using TMPro;
 
 public class RecordResultsManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class RecordResultsManager : MonoBehaviour
     private string tempAns;
 
     public GameObject gound;
+    public TextMeshProUGUI simpleUIText;
+    public int ifContinueCondition;
 
     // Start is called before the first frame update
     void Start()
@@ -37,43 +40,47 @@ public class RecordResultsManager : MonoBehaviour
         answers = new List<string>();
         timer = pusher.GetComponent<CountTime>();
         Starter = button.GetComponent<IfStart>();
-    }
-
-    private void OnDisable()
-    {
-        if (ifCount == true)
-        {
-            RecordResults();
-        }
+        ifContinueCondition = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Starter.ifChosen == true)
+        ifContinueCondition = answers.Count;
+        if (ifContinueCondition < 5)
         {
-            whichOne = functions.whichOne + 1;
-            caseDone = true;
-            ifCount = true;
-        }
+            if (Starter.ifChosen == true)
+            {
+                whichOne = functions.whichOne + 1;
+                caseDone = true;
+                ifCount = true;
+            }
 
-        if (timer.ifRecord == true)
-        {
-            timeInterval = timer.DeltaTime;
-            timeDone = true;
-        }
+            if (timer.ifRecord == true)
+            {
+                timeInterval = timer.DeltaTime;
+                timeDone = true;
+            }
 
-        if (caseDone == true && timeDone == true)
-        {
-            tempAns = whichOne.ToString("d") + ", " + timeInterval;
-            answers.Add(tempAns);
-            caseDone = false;
-            timeDone = false;
+            if (caseDone == true && timeDone == true)
+            {
+                tempAns = whichOne.ToString("d") + ", " + timeInterval;
+                answers.Add(tempAns);
+                caseDone = false;
+                timeDone = false;
+            }
         }
-
-        if (OVRInput.Get(OVRInput.Button.Three))
+        else
         {
-            gameObject.SetActive(false);
+            Store();
+            if (OVRInput.Get(OVRInput.Button.Three))
+            {
+                if (ifCount == true)
+                {
+                    RecordResults();
+                    ifCount = false;
+                }
+            }
         }
     }
 
@@ -87,11 +94,11 @@ public class RecordResultsManager : MonoBehaviour
             }
             foreach (string result in answers)
             {
-                builder.Append(result).Append(",").Append("\n");
+                builder.Append(result).Append(",\n");
             }
             string results = builder.ToString();
             File.WriteAllText(filePath, results);
-
+            Saved();
             Debug.Log(results);
             Debug.Log(filePath);
         }
@@ -99,5 +106,15 @@ public class RecordResultsManager : MonoBehaviour
         {
             Debug.Log(e);
         }
+    }
+
+    void Store()
+    {
+        simpleUIText.text = "Please Store your answers";
+    }
+
+    void Saved()
+    {
+        simpleUIText.text = "Answers Have Been Saved";
     }
 }

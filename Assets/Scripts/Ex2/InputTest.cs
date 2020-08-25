@@ -16,16 +16,19 @@ public class InputTest : MonoBehaviour
 
     private float initialTime;
     private float currentTime;
-    
    
     public TextMeshProUGUI simpleUIText;
     public bool ifPlay;
 
+    private bool ifSine;
     private bool posOrNot;
     private int whichWave;
 
     private RandomPlayer JudgeFrom;
     private Ex2Starter StartFrom;
+
+    private int ifContinueCondition;
+    private bool ifCount;
 
     // Start is called before the first frame update
     void Start()
@@ -38,46 +41,63 @@ public class InputTest : MonoBehaviour
         running = false;
         JudgeFrom = gameObject.GetComponent<RandomPlayer>();
         StartFrom = GameObject.Find("Exp2Manager").gameObject.GetComponent<Ex2Starter>();
+        ifContinueCondition = 0;
+        ifCount = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        ifContinueCondition = answers.Count;
         running = StartFrom.ifStart;
-        if (running)
+        if (ifContinueCondition < 15)
         {
-            currentTime = Time.time;
-            if (currentTime - initialTime > 1.0f)
+            if (running)
             {
-                Test();
-                posOrNot = JudgeFrom.PosOrNeg;
-                whichWave = JudgeFrom.whichOne;
-            }
+                currentTime = Time.time;
+                if (currentTime - initialTime > 1.0f)
+                {
+                    Test();
+                    ifSine = JudgeFrom.ifSine;
+                    posOrNot = JudgeFrom.PosOrNeg;
+                    whichWave = JudgeFrom.whichOne;
+                }
 
-            if (currentTime - initialTime > 5.0f)
-            {
-                executing = true;
-                Provide();
-            }
+                if (currentTime - initialTime > 8.0f)
+                {
+                    executing = true;
+                    Provide();
+                }
 
-            if (executing)
+                if (executing)
+                {
+                    JudgeIfUp();
+                }
+            }
+            else
             {
+                initialTime = Time.time;
+            }
+        }
+        else
+        {
+            if (ifCount) {
+                Store();
                 if (OVRInput.Get(OVRInput.Button.Three))
                 {
                     RecordResults();
                     running = false;
+                    StartFrom.button.transform.position = StartFrom.spawn.transform.position;
+                    StartFrom.button.transform.rotation = StartFrom.spawn.transform.rotation;
                     StartFrom.Base.SetActive(true);
                     StartFrom.shell.SetActive(true);
                     StartFrom.button.SetActive(true);
                     StartFrom.LeftHand.SetActive(true);
                     StartFrom.LeftController.SetActive(false);
+                    ifContinueCondition = 0;
+                    ifCount = false;
                 }
-
-                JudgeIfUp();
             }
-        }
-        else {
-            initialTime = Time.time;
         }
     }
 
@@ -85,14 +105,14 @@ public class InputTest : MonoBehaviour
         if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickUp))
         {
             Up();
-            answers.Add(WriteTpye() + "Up\n");
+            answers.Add(WriteTpye() + " Up");
             executing = false;
             initialTime = currentTime;
         }
         else if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickDown))
         {
             Down();
-            answers.Add(WriteTpye() + "Down\n");
+            answers.Add(WriteTpye() + " Down");
             executing = false;
             initialTime = currentTime;
         }
@@ -106,7 +126,7 @@ public class InputTest : MonoBehaviour
             initialTime = currentTime;
 
             foreach (string result in answers) {
-                builder.Append(result).Append(",");
+                builder.Append(result).Append(",\n");
             }
             string results = builder.ToString();
             File.WriteAllText(filePath, results);
@@ -128,7 +148,7 @@ public class InputTest : MonoBehaviour
 
     void Provide() {
         ifPlay = false;
-        simpleUIText.text = "Your answer OR Store";
+        simpleUIText.text = "Your answer";
     }
 
     void Up()
@@ -141,18 +161,31 @@ public class InputTest : MonoBehaviour
         simpleUIText.text = "Down";
     }
 
+    void Store()
+    {
+        simpleUIText.text = "Please Store your answers";
+    }
+
     void Saved()
     {
         simpleUIText.text = "Answers Have Been Saved";
     }
 
     string WriteTpye() {
-        if (posOrNot)
+        if (ifSine)
         {
-            return "Posive" + JudgeFrom.PosSoundTypes[whichWave].name;
+            return "Sine";
         }
-        else {
-            return "Negative" + JudgeFrom.NegSoundTypes[whichWave].name;
+        else
+        {
+            if (posOrNot)
+            {
+                return "Posive" + JudgeFrom.PosSoundTypes[whichWave].name;
+            }
+            else
+            {
+                return "Negative" + JudgeFrom.NegSoundTypes[whichWave].name;
+            }
         }
     }
 }

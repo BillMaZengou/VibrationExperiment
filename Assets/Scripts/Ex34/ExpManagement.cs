@@ -15,6 +15,9 @@ public class ExpManagement : MonoBehaviour
     public int whichOne = 1000;
     public List<GameObject> checkers;
 
+    public RecordResultsManager recorder;
+    private int ifContinueCondition;
+
     public void Restart()
     {
         button.transform.position = buttonSpawn.transform.position;
@@ -34,7 +37,7 @@ public class ExpManagement : MonoBehaviour
             fixture.SetActive(true);
         }
 
-        whichOne = (int)Random.Range(0.0f, checkers.Count - 0.6f);
+        whichOne = (int)Random.Range(-0.4f, checkers.Count - 0.6f);
         checkers[whichOne].SetActive(true);
     }
 
@@ -42,11 +45,16 @@ public class ExpManagement : MonoBehaviour
     {
         button.transform.position = buttonSpawn.transform.position;
         button.transform.rotation = buttonSpawn.transform.rotation;
-        button.SetActive(true);
-        Base.SetActive(true);
-        if (shell != null)
+
+        ifContinueCondition = recorder.ifContinueCondition;
+        if (ifContinueCondition < 15)
         {
-            shell.SetActive(true);
+            button.SetActive(true);
+            Base.SetActive(true);
+            if (shell != null)
+            {
+                shell.SetActive(true);
+            }
         }
 
         pusher.transform.position = pusherSpawn.transform.position;

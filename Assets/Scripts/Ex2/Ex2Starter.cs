@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Ex2Starter : MonoBehaviour
 {
@@ -15,30 +13,22 @@ public class Ex2Starter : MonoBehaviour
 
     public bool ifStart;
     // Start is called before the first frame update
-    void Start()
-    {
-        startPoint = spawn.transform;
-        button.transform.position = startPoint.position;
-        ifStart = false;
-    }
 
     private void OnEnable()
     {
+        startPoint = spawn.transform;
         button.transform.position = startPoint.position;
         button.transform.rotation = startPoint.rotation;
         ifStart = false;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void Restart()
     {
-        if (collision.gameObject.name == Base.name)
-        {
-            Base.SetActive(false);
-            shell.SetActive(false);
-            button.SetActive(false);
-            LeftHand.SetActive(false);
-            LeftController.SetActive(true);
-            ifStart = true;
-        }
+        Base.SetActive(false);
+        shell.SetActive(false);
+        button.SetActive(false);
+        LeftHand.SetActive(false);
+        LeftController.SetActive(true);
+        ifStart = true;
     }
 }
