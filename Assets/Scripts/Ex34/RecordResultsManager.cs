@@ -19,6 +19,7 @@ public class RecordResultsManager : MonoBehaviour
     private bool caseDone = false;
     private bool timeDone = false;
     private bool ifCount = false;
+    private bool ifSave = false;
 
     private List<string> answers;
     StringBuilder builder = new StringBuilder();
@@ -28,10 +29,39 @@ public class RecordResultsManager : MonoBehaviour
     public TextMeshProUGUI simpleUIText;
     public int ifContinueCondition;
 
+    public ContactPlay nameFrom;
+    private string vibrate;
+    private string symmetric;
+    private string ifRandom;
+    private string idx;
+
     // Start is called before the first frame update
     void Start()
     {
-        filePath = Application.persistentDataPath + gameObject.name + ".txt";
+        if (nameFrom.vibration)
+        {
+            vibrate = "Vib";
+            if (nameFrom.symmetric)
+            {
+                symmetric = "Sine";
+                vibrate += symmetric;
+            }
+            else
+            {
+                if (nameFrom.ifRandomise)
+                {
+                    ifRandom = "Random";
+                    vibrate += ifRandom;
+                }
+            }
+        }
+        else
+        {
+            vibrate = "NoVib";
+        }
+
+        filePath = Application.persistentDataPath + vibrate + ".txt";
+        Debug.Log(filePath);
 
         functions = Manager.gameObject.GetComponent<ExpManagement>();
         button = functions.button;
@@ -40,20 +70,20 @@ public class RecordResultsManager : MonoBehaviour
         answers = new List<string>();
         timer = pusher.GetComponent<CountTime>();
         Starter = button.GetComponent<IfStart>();
-        ifContinueCondition = 0;
+        ifContinueCondition = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
         ifContinueCondition = answers.Count;
-        if (ifContinueCondition < 5)
+        if (ifContinueCondition < 15)
         {
             if (Starter.ifChosen == true)
             {
                 whichOne = functions.whichOne + 1;
-                caseDone = true;
                 ifCount = true;
+                caseDone = true;
             }
 
             if (timer.ifRecord == true)
@@ -64,21 +94,31 @@ public class RecordResultsManager : MonoBehaviour
 
             if (caseDone == true && timeDone == true)
             {
-                tempAns = whichOne.ToString("d") + ", " + timeInterval;
+                idx = ifContinueCondition.ToString();
+                tempAns = idx + ", " + whichOne.ToString("d") + ", " + timeInterval;
+                Debug.Log(tempAns);
                 answers.Add(tempAns);
                 caseDone = false;
                 timeDone = false;
+                timer.ifRecord = false;
             }
         }
         else
         {
-            Store();
-            if (OVRInput.Get(OVRInput.Button.Three))
+            if (ifSave)
             {
-                if (ifCount == true)
+                Saved();
+            }
+            else
+            {
+                Store();
+                if (OVRInput.Get(OVRInput.Button.Three))
                 {
-                    RecordResults();
-                    ifCount = false;
+                    if (ifCount == true)
+                    {
+                        RecordResults();
+                        ifCount = false;
+                    }
                 }
             }
         }
@@ -98,7 +138,7 @@ public class RecordResultsManager : MonoBehaviour
             }
             string results = builder.ToString();
             File.WriteAllText(filePath, results);
-            Saved();
+            ifSave = true;
             Debug.Log(results);
             Debug.Log(filePath);
         }

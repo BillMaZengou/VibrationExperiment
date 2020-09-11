@@ -5,24 +5,23 @@ using UnityEngine;
 public class ContactPlay : MonoBehaviour
 {
     private AudioClip Sound;
-    private GameObject SoundType;
+    private DarkArtsStudios.SoundGenerator.Composition SoundType;
     private GameObject SoundPlayer;
     private AudioSource audioSource;
 
-    public List<GameObject> PosSoundTypes;
-    public List<GameObject> NegSoundTypes;
+    public DarkArtsStudios.SoundGenerator.Composition PosSoundType;
+    public DarkArtsStudios.SoundGenerator.Composition Sine;
 
-    public bool PosOrNeg;  // True for positve; False for negative
-    public int PosWhichOne;
-    /*
-    1 -> Asymmetric Sine
-    2 -> Three to one sine
-    3 -> Ramp
-    4 -> Square
-    5 -> HapCube
-    */
-    public int NegWhichOne;
+    public bool vibration; // True for vibration; False for only vision
+    public bool symmetric; // True for symmetric; Falso for asymmetric
+
     private bool ifPlay;
+
+    public bool ifRandomise;  // True for randomising the waveforms
+    private float randomTrigger = 0.0f;
+    public List<DarkArtsStudios.SoundGenerator.Composition> RandomRange;
+    private int randomIdx;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,12 +33,25 @@ public class ContactPlay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ifPlay)
+        if (ifRandomise)
         {
-            PlaySound();
+            randomTrigger++;
+            if (randomTrigger%5.0f == 0.0f)
+            {
+                randomIdx = Random.Range(0, RandomRange.Count);
+            }
         }
-        else {
-            audioSource.Stop();
+
+        if (vibration)
+        {
+            if (ifPlay)
+            {
+                PlaySound();
+            }
+            else
+            {
+                audioSource.Stop();
+            }
         }
     }
 
@@ -53,15 +65,24 @@ public class ContactPlay : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("mover"))
         {
-            if (PosOrNeg)
+            if (symmetric)
             {
-                SoundType = PosSoundTypes[PosWhichOne - 1];
+                SoundType = Sine;
             }
             else
             {
-                SoundType = NegSoundTypes[NegWhichOne - 1];
+                if (ifRandomise)
+                {
+                    SoundType = RandomRange[randomIdx];
+                    //Debug.Log(randomIdx);
+                }
+                else
+                {
+                    SoundType = PosSoundType;
+                }
             }
             FindSound();
+            Debug.Log(SoundType);
             ifPlay = true;
         }
     }
@@ -82,9 +103,8 @@ public class ContactPlay : MonoBehaviour
 
     private void FindSound()
     {
-        DarkArtsStudios.SoundGenerator.Composition bounceComposition = SoundType.GetComponent<DarkArtsStudios.SoundGenerator.Composition>();
         DarkArtsStudios.SoundGenerator.Module.Output output = null;
-        foreach (DarkArtsStudios.SoundGenerator.Module.BaseModule module in bounceComposition.modules)
+        foreach (DarkArtsStudios.SoundGenerator.Module.BaseModule module in SoundType.modules)
         {
             if (module.GetType() == typeof(DarkArtsStudios.SoundGenerator.Module.Output))
             {

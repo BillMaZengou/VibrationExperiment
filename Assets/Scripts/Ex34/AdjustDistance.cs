@@ -21,6 +21,7 @@ public class AdjustDistance : MonoBehaviour
 
     private void Adjust(List<GameObject> changingObject, GameObject origin) {
         Vector3 displacement = changingObject[0].transform.position - origin.transform.position;
+        Debug.Log(displacement.magnitude);
         float portion = Mathf.Floor(changingObject.Count / 2);
         float dAngle = separateAngle / portion;
         //Debug.Log(dAngle);

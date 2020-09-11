@@ -7,6 +7,7 @@ TagManager:
   - StaticLevel
   - target
   - mover
+  - contact
   layers:
   - Default
   - TransparentFX

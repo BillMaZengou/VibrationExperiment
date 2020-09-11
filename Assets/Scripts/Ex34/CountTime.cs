@@ -6,6 +6,8 @@ public class CountTime : MonoBehaviour
     private float currentTime;
     public string DeltaTime;
     public bool ifRecord;
+    public IfCollide groundDetection;
+    private bool collideWithGround;
 
     private void OnEnable()
     {
@@ -19,6 +21,13 @@ public class CountTime : MonoBehaviour
         DeltaTime = (currentTime - initialTime).ToString("f3");
         DeltaTime += " sec";
         ifRecord = true;
+        collideWithGround = groundDetection.collideGround;
+        if (collideWithGround)
+        {
+            DeltaTime = "Null";
+        }
+        Debug.Log("Time saved");
+        Debug.Log(DeltaTime);
     }
 
 }

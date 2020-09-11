@@ -11,6 +11,7 @@ public class ExpManagement : MonoBehaviour
     public GameObject pusherSpawn;
     public GameObject fixture;
     public GameObject contact;
+    public MeshRenderer controller;
 
     public int whichOne = 1000;
     public List<GameObject> checkers;
@@ -31,13 +32,14 @@ public class ExpManagement : MonoBehaviour
 
         pusher.transform.position = pusherSpawn.transform.position;
         pusher.SetActive(true);
+        controller.enabled = false;
         contact.SetActive(true);
         if (fixture != null)
         {
             fixture.SetActive(true);
         }
 
-        whichOne = (int)Random.Range(-0.4f, checkers.Count - 0.6f);
+        whichOne = Random.Range(0, checkers.Count);
         checkers[whichOne].SetActive(true);
     }
 
@@ -59,6 +61,7 @@ public class ExpManagement : MonoBehaviour
 
         pusher.transform.position = pusherSpawn.transform.position;
         pusher.SetActive(false);
+        controller.enabled = true;
         contact.SetActive(false);
         if (fixture != null)
         {

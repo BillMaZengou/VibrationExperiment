@@ -99,8 +99,8 @@ MonoBehaviour:
   attributes: []
   visualPlacementRect:
     serializedVersion: 2
-    x: 63
-    y: 268
+    x: 72
+    y: 266
     width: 200
     height: 17
 --- !u!1 &4794837442457018515
@@ -160,7 +160,7 @@ MonoBehaviour:
     clampMinimumValue: 0
     clampMaximumValue: 1
   - name: Frequency
-    value: 30
+    value: 75
     generator: {fileID: 0}
     hiddenValue: 0
     allowInput: 1
@@ -183,8 +183,8 @@ MonoBehaviour:
     clampMaximumValue: 1
   visualPlacementRect:
     serializedVersion: 2
-    x: 394
-    y: 300.87845
+    x: 403
+    y: 298.87845
     width: 200
     height: 186
   sampleRate: 96000
@@ -258,7 +258,7 @@ MonoBehaviour:
     clampMaximumValue: 1
   visualPlacementRect:
     serializedVersion: 2
-    x: 135
-    y: 413
+    x: 144
+    y: 411
     width: 200
     height: 74

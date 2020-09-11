@@ -1503,17 +1503,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   symmetricWave: {fileID: 1734822946}
   PosSoundTypes:
-  - {fileID: 901995711}
-  - {fileID: 901995710}
-  - {fileID: 901995709}
-  - {fileID: 901995708}
   - {fileID: 901995707}
+  - {fileID: 901995708}
+  - {fileID: 901995709}
+  - {fileID: 901995710}
+  - {fileID: 901995711}
   NegSoundTypes:
-  - {fileID: 901995706}
-  - {fileID: 901995705}
-  - {fileID: 901995704}
-  - {fileID: 901995703}
   - {fileID: 901995702}
+  - {fileID: 901995703}
+  - {fileID: 901995704}
+  - {fileID: 901995705}
+  - {fileID: 901995706}
   ifSine: 0
   PosOrNeg: 0
   whichOne: 0
@@ -2068,7 +2068,7 @@ PrefabInstance:
     - target: {fileID: 6699870882511303528, guid: 5303d33c964e44fb8856d03d895e73f2,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6699870882511303530, guid: 5303d33c964e44fb8856d03d895e73f2,
         type: 3}
